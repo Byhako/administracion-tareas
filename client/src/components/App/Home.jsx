@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 import '@/styles/home.styl'
 
+import actions from '@/actions'
 
 class Home extends Component {
+
+  prueba = () => {
+    this.props.dispatch(actions.prueba())
+  }
 
   render () {
     return (
@@ -11,7 +17,9 @@ class Home extends Component {
           <div className="row">
             <p className="col-8 offset-2 title-home">
               Administrador de tareas
-            </p>           
+            </p>
+            <button className="btn1" onClick={this.prueba}>prueba</button>
+
           </div>
           <div className="row">
             <div className="col-2 offset-3 col-btn">
@@ -31,4 +39,10 @@ class Home extends Component {
 }
 
 
-export default Home
+function mapStateToProps (state, props) {
+  return {
+    login: state.login,
+  }
+}
+
+export default connect(mapStateToProps)(Home)

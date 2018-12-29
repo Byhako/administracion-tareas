@@ -1,5 +1,30 @@
 export default {
-  login, register, exit
+  prueba, login, register, exit
+}
+
+function prueba () {
+  console.log('accion prueba')
+  return function (dispatch) {
+  
+    const url = `http://localhost:3000/`
+    const miInit = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors'
+    }
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request prueba ok')
+          return response.json()
+        } else { 
+          console.log('Error in request prueba:', response) 
+        }})
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.error('Error in response prueba:', err))
+  }
 }
 
 function login (email, password) {
