@@ -7,6 +7,7 @@ import actions from '@/actions'
 
 import '@/styles/table.styl'
 
+
 class Table extends Component {
   constructor(props) {
     super(props)
@@ -141,7 +142,7 @@ class Table extends Component {
           <Fragment>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
               <span className="navbar-brand mr-auto">Administrador de tareas</span>
-              
+
               <button className="btn btn-nav mr-5" type="button" data-toggle="modal"
                  data-target="#modalNewTask" onClick={this.handleBtnNewTask}>Nueva tarea</button>
               
@@ -168,7 +169,7 @@ class Table extends Component {
                         <td>{task.date}</td>
                         <td className="container-icons">
                           <i className="fas fa-edit icon" data-id={i} data-toggle="modal"
-                            data-target="#modaEditTask" onClick={this.handleIconEdit}></i>
+                            data-target="#modaEditTask" onClick={this.handleIconEdit} />
                           <i className="fas fa-trash-alt icon" data-id={i} onClick={this.handleIconDelete}></i>        
                         </td>
                       </tr>
@@ -272,10 +273,15 @@ class Table extends Component {
             </div>
           </div>
         </div>
+
       </Fragment>
     )
   }
 }
+
+
+
+
 
 function mapStateToProps (state, props) {
   return {

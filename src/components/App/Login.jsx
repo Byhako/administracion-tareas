@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import actions from '@/actions'
+import $ from 'jquery'
+
 import '@/styles/login.styl'
 
 
@@ -10,11 +12,25 @@ class Login extends Component {
       super(props)
       this.email = ''
       this.password = ''
+      this.state = {
+        messageError: ''
+      }
     }
 
   handleChangeEmail = (e) => {
+    $('#mail').addClass('email-error')
+
     const value = e.target.value
-    this.email = value
+
+    const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+    const isValid = emailRegex.test(value)
+
+    if (isValid) {
+      $('#mail').removeClass('email-error')
+      this.email = value
+    } else {
+      this.email = false
+    }
   }
 
   handleChangePassword = (e) => {
@@ -24,9 +40,8 @@ class Login extends Component {
 
   handleLogin = () => {
     console.log(this.email, this.password)
-
+    $('.spinner-border').css('display', 'block')
     this.props.dispatch(actions.login(this.email, this.password))
-
   }
 
   render () {
@@ -60,9 +75,23 @@ class Login extends Component {
                   type="password"
                   placeholder='••••••••••'
                 />
+              
+
                 <div className='col-10 offset-1 btn-container'>
-                  <button className="btn-login" onClick={this.handleLogin}>Ingresar</button>
+                  <div className="row">                
+                    <div className="col-7">
+                      <small>{this.state.messageError}</small>
+                      <div className="spinner-border text-info" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                    <div className="col-5">                  
+                      <button className="btn-login" onClick={this.handleLogin}>Ingresar</button>
+                    </div>
+                  </div>
                 </div>
+
               </div>            
             </div>
           </div>
