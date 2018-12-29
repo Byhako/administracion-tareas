@@ -9,6 +9,7 @@
   "author": "Ruben E Acosta",
   "license": "MIT",
   "dependencies": {
+    "@sweetalert/with-react": "^0.1.1",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.6",
     "react": "^16.7.0",
@@ -19,7 +20,8 @@
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "save": "^2.3.3"
+    "save": "^2.3.3",
+    "sweetalert": "^2.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

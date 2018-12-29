@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
+import swal from '@sweetalert/with-react'
 import { connect } from 'react-redux'
 import $ from 'jquery'
 import actions from '@/actions'
@@ -27,7 +28,9 @@ class Table extends Component {
   }
 
   handleBtnNewTask = () => {
-    document.getElementById("form-create").reset()
+    $('.modal-header').removeClass('modal-error')
+    $('.message-error').css("display", "none")
+    $('#form-create').trigger("reset")
     this.nameTask = ''
     this.priority = 'Baja'
     this.date = ''
@@ -49,15 +52,46 @@ class Table extends Component {
   }
 
   handleIconEdit = (e) => {
-    document.getElementById("form-edit").reset()
+    $('.modal-header').removeClass('modal-error')
+    $('.message-error').css("display", "none")
+    $('#form-edit').trigger("reset")
+
     const id = e.target.dataset.id
     let task = this.state.tasks[id]
+
     this.nameTask = task.nameTask
     this.priority = task.priority
     this.date = task.date
     this.idTask = id
 
     this.setState({editTask: task})
+  }
+
+  handleIconDelete = (e) => {
+    const id = e.target.dataset.id
+    let tasks = this.state.tasks.slice()
+    let task = tasks[id]
+    console.log(task)
+
+    swal({
+      title: "¿Estas seguro?",
+      text: `Vas a borrar la tarea "${task.nameTask}".`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        tasks.splice(id, 1)
+        this.setState({tasks})
+
+        swal("Poof! La tarea ha sido borrada!", {
+          icon: "success",
+        });
+      } else {
+        swal("No se borró la tarea.")
+      }
+    })
   }
 
   createTask = () => {
@@ -135,7 +169,7 @@ class Table extends Component {
                         <td className="container-icons">
                           <i className="fas fa-edit icon" data-id={i} data-toggle="modal"
                             data-target="#modaEditTask" onClick={this.handleIconEdit}></i>
-                          <i className="fas fa-trash-alt icon"></i>        
+                          <i className="fas fa-trash-alt icon" data-id={i} onClick={this.handleIconDelete}></i>        
                         </td>
                       </tr>
                     ))}
