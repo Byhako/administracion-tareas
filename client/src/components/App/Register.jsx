@@ -60,8 +60,6 @@ constructor(props) {
 
   handleRegister = () => {
 
-    console.log(this.email, this.password, this.password2)
-
     if (this.password === this.password2 && this.email) {
       this.setState({messageError: ''})
       this.props.dispatch(actions.register(this.name, this.email, this.password))
