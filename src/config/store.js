@@ -9,7 +9,7 @@ const middleware = [ReduxThunk, logger]
 
 export const initialState = {
   token: null,
-  userId: null,
+  login: false,
 }
 
 const store = createStore(

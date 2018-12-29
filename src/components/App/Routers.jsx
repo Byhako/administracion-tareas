@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
-
+import Table from '../Table/Table'
 
 class AppRouter extends Component {
 
@@ -15,6 +15,7 @@ class AppRouter extends Component {
           <Route exact path='/' component={Home} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
+          <Route exact path='/table' component={Table} />
         </Switch>
       </BrowserRouter>
     )
