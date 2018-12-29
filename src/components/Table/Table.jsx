@@ -6,8 +6,48 @@ import actions from '@/actions'
 import '@/styles/table.styl'
 
 class Table extends Component {
-  state = {
-    tasks: []
+  constructor(props) {
+    super(props)
+
+    this.nameTask = ''
+    this.priority = 'Baja'
+    this.date = ''
+
+    this.state = {
+      tasks: []
+    }
+  }
+
+  handleChangeNewTask = (e) => {
+    const value = e.target.value
+    this.nameTask = value
+  }
+
+  handleChangeDate = (e) => {
+    const value = e.target.value
+    this.date = value
+  }
+
+  handleChangePriority = (e) => {
+    const value = e.target.value
+    this.priority = value
+  }
+
+  createTask = () => {
+    console.log(this.nameTask)
+    console.log(this.priority)
+    console.log(this.date)
+    let tasks = this.state.tasks.slice()
+
+    let newTask = {
+      name: this.nameTask,
+      priority: this.priority,
+      date: this.date
+    }
+
+    tasks.push(newTask)
+
+    this.setState({tasks})
   }
 
   btnSalir = () => {
@@ -37,6 +77,7 @@ class Table extends Component {
                       <th scope="col">Nombre de tarea</th>
                       <th scope="col">Prioridad</th>
                       <th scope="col">Fecha</th>
+                      <th>Editar/borrar</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -45,6 +86,10 @@ class Table extends Component {
                         <td>{task.name}</td>
                         <td>{task.priority}</td>
                         <td>{task.date}</td>
+                        <td className="container-icons">
+                          <i className="fas fa-edit icon"></i>
+                          <i className="fas fa-trash-alt icon"></i>        
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -57,7 +102,7 @@ class Table extends Component {
         )}
 
         {/* Modal Front */}
-        <div className="modal fade" id="modalNewTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="modalNewTask" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -69,13 +114,14 @@ class Table extends Component {
               <div className="modal-body">
                 <form>
                   <div className="form-group">
-                    <label for="nameTask">Nombre de la tarea</label>
-                    <input type="email" className="form-control" id="nameTask" placeholder="nueva tarea" />
+                    <label htmlFor="nameTask">Nombre de la tarea</label>
+                    <input type="text" className="form-control" id="nameTask"
+                      placeholder="nueva tarea" onChange={this.handleChangeNewTask}/>
                   </div>
 
                   <div className="form-group">
-                    <label for="priorityInput">Prioridad</label>
-                    <select className="form-control" id="priorityInput">
+                    <label htmlFor="priorityInput">Prioridad</label>
+                    <select className="form-control" id="priorityInput" onChange={this.handleChangePriority}>
                       <option>Baja</option>
                       <option>Media</option>
                       <option>Alta</option>
@@ -83,15 +129,17 @@ class Table extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label for="expirationDate">Fecha de vencimiento</label>
-                    <input type="date" className="form-control" id="expirationDate" placeholder="dd/mm/yyyy" />
+                    <label htmlFor="expirationDate">Fecha de vencimiento</label>
+                    <input type="date" className="form-control" id="expirationDate"
+                      placeholder="dd/mm/yyyy" onChange={this.handleChangeDate} />
                   </div>
                   
                 </form>
               </div>
               <div className="modal-footer">
                 <button type="button" className="btn btn-exit" data-dismiss="modal">Salir</button>
-                <button type="button" className="btn btn-modal">Crear tarea</button>
+                <button type="button" className="btn btn-modal" data-dismiss="modal"
+                  onClick={this.createTask}>Crear tarea</button>
               </div>
             </div>
           </div>
