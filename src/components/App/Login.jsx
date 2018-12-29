@@ -4,14 +4,12 @@ import { connect } from 'react-redux'
 import '@/styles/login.styl'
 
 
-class Home extends Component {
-constructor(props) {
-    super(props)
-    this.refEmail = React.createRef()
-    this.refPassword = React.createRef()
-    this.email = ''
-    this.password = ''
-  }
+class Login extends Component {
+  constructor(props) {
+      super(props)
+      this.email = ''
+      this.password = ''
+    }
 
   handleChangeEmail = (e) => {
     const value = e.target.value
@@ -24,13 +22,9 @@ constructor(props) {
   }
 
   handleLogin = () => {
-    const location = this.props.location.pathname.split('/')[1]
+      // this.props.dispatch(actions.login(this.email, this.password, 'admin'))
 
-    if (location === 'admin') {
-      this.props.dispatch(actions.login(this.email, this.password, 'admin'))
-    } else {
-      this.props.dispatch(actions.login(this.email, this.password, 'user'))
-    }
+    console.log(this.email, this.password)
 
   }
 
@@ -39,27 +33,33 @@ constructor(props) {
       <Fragment>
         <div className="container-fluid contenedor">
           <div className="row">           
-            <p className="col-4 offset-4 label-login">Ingresa tu correo y contraseña.</p> 
+            <p className="col-4 offset-4 title-login">Ingresa tu correo y contraseña.</p> 
           </div>
 
           <div className="row">            
-            <div className="col-4 offset-4 pd-5 containerLogin">
+            <div className="col-4 offset-4 pd-5 container-login">
+              <label htmlFor='mail' className='col-10 offset-1 label-login'>
+                Correo
+              </label>
               <input
+                id='mail'
                 type='email'
-                className='col-10 offset-1 input'
+                className='col-10 offset-1 input-login'
                 placeholder='user@email.com'
                 onChange={this.handleChangeEmail}
-                ref={this.refEmail}
               />
+              <label htmlFor='pass' className='col-10 offset-1 label-login'>
+                Contraseña
+              </label>
               <input
-                className='col-10 offset-1 input'
+                id='pass'
+                className='col-10 offset-1 input-login'
                 onChange={this.handleChangePassword}
-                ref={this.refPassword}
                 type="password"
                 placeholder='••••••••••'
               />
-              <div className='col-10 offset-1 btnContainer'>
-                <button className="btnLogin" onClick={this.handleLogin}>LOGIN</button>
+              <div className='col-10 offset-1 btn-container'>
+                <button className="btn-login" onClick={this.handleLogin}>Ingresar</button>
               </div>
             </div>
             
@@ -76,4 +76,4 @@ function mapStateToProps (state, props) {
   }
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(Login)

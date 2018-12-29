@@ -15,7 +15,7 @@ class Home extends Component {
           </div>
           <div className="row">
             <div className="col-2 offset-3 col-btn">
-              <Link to='/'>
+              <Link to='/register'>
                 <button className="btn1">Crear Usuario</button>
               </Link>
             </div>
