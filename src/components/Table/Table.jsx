@@ -27,6 +27,7 @@ class Table extends Component {
   }
 
   handleBtnNewTask = () => {
+    document.getElementById("form-create").reset()
     this.nameTask = ''
     this.priority = 'Baja'
     this.date = ''
@@ -48,6 +49,7 @@ class Table extends Component {
   }
 
   handleIconEdit = (e) => {
+    document.getElementById("form-edit").reset()
     const id = e.target.dataset.id
     let task = this.state.tasks[id]
     this.nameTask = task.nameTask
@@ -71,6 +73,9 @@ class Table extends Component {
       tasks.push(newTask)
       this.setState({tasks})
       $('#modalNewTask').modal('toggle')
+    } else {
+      $('.modal-header').addClass('modal-error')
+      $('.message-error').css("display", "block")
     }
   }
 
@@ -83,7 +88,11 @@ class Table extends Component {
       tasks[this.idTask].date = this.date
 
       this.setState({tasks})
-      $('#modalEditTask').modal('toggle')
+      $('#modaEditTask').modal('toggle')
+    } else {
+      console.log('error')
+      $('.modal-header').addClass('modal-error')
+      $('.message-error').css("display", "block")
     }
   }
 
@@ -150,7 +159,7 @@ class Table extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <form>
+                <form id='form-create'>
                   <div className="form-group">
                     <label htmlFor="nameTask">Nombre de la tarea</label>
                     <input type="text" className="form-control" id="nameTask"
@@ -175,6 +184,7 @@ class Table extends Component {
                 </form>
               </div>
               <div className="modal-footer">
+                <h6 className='mx-auto message-error'>¡Faltan campos por llenar!</h6>
                 <button type="button" className="btn btn-exit" data-dismiss="modal">Salir</button>
                 <button type="button" className="btn btn-modal" 
                   onClick={this.createTask}>Crear tarea</button>
@@ -194,7 +204,7 @@ class Table extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <form>
+                <form id='form-edit'>
                   <div className="form-group">
                     <label htmlFor="nameTask">Nombre de la tarea</label>
                     <input type="text" className="form-control" id="nameTask"
@@ -220,8 +230,9 @@ class Table extends Component {
                 </form>
               </div>
               <div className="modal-footer">
+                <h6 className='mx-auto message-error'>¡Faltan campos por llenar!</h6>
                 <button type="button" className="btn btn-exit" data-dismiss="modal">Salir</button>
-                <button type="button" className="btn btn-modal" data-dismiss="modal"
+                <button type="button" className="btn btn-modal"
                   onClick={this.editTask}>Guardar cambios</button>
               </div>
             </div>
