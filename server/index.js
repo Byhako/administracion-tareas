@@ -57,11 +57,13 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const {email, password } = req.body
   const user = await mongoDB.login(email)
+  
+  console.log(user[0])
 
   if (user[0]) {
     if (user[0].password === password) {
       // usuario valido
-      res.json({"user": true, "password": true, "name": user[0].name})
+      res.json({"user": true, "password": true, "name": user[0].name, tasks: user[0].tasks})
     } else {
       // password incorrecto
       res.json({"user": true, "password": false, "name": null})

@@ -51,8 +51,6 @@ function login (email, password) {
       body: JSON.stringify(body),
       mode: 'cors'
     }
-    console.log(miInit)
-
     return fetch(url, miInit)
       .then(response => {
         if (response.ok) {
@@ -67,6 +65,7 @@ function login (email, password) {
         console.log(data)
         if (data.user && data.password) {
           // Usuario valido
+          dispatch({ type: 'SET_TASKS', tasks: data.tasks })
           dispatch({ type: 'SET_NAME', name: data.name })
           dispatch({ type: 'SET_LOGIN', login: true })
         } else if (data.user && !data.password) {
@@ -167,8 +166,6 @@ function borrar (email, password) {
       .catch(err => console.error('Error in response registrar:', err))
   }
 }
-
-
 
 
 

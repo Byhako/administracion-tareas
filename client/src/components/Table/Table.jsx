@@ -18,14 +18,19 @@ class Table extends Component {
     this.idTask = 0
 
     this.state = {
-      tasks: [
-        {nameTask: "comer", priority: "Baja", date: "2018-12-30"},
-        {nameTask: "nadar", priority: "Media", date: "2018-12-26"},
-        {nameTask: "bailar", priority: "Alta", date: "2018-12-30"}
-      ],
-
+      // tasks: [
+      //   {nameTask: "comer", priority: "Baja", date: "2018-12-30"},
+      //   {nameTask: "nadar", priority: "Media", date: "2018-12-26"},
+      //   {nameTask: "bailar", priority: "Alta", date: "2018-12-30"}
+      // ],
+      tasks: [],
       editTask: {}
     }
+  }
+
+  componentDidMount () {
+    console.log(this.props.tasks)
+    this.setState({tasks: this.props.tasks})
   }
 
   handleBtnNewTask = () => {
@@ -141,13 +146,14 @@ class Table extends Component {
         {this.props.login ? (
           <Fragment>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-              <span className="navbar-brand mr-auto">Administrador de tareas</span>
-
-              <button className="btn btn-nav mr-5" type="button" data-toggle="modal"
-                 data-target="#modalNewTask" onClick={this.handleBtnNewTask}>Nueva tarea</button>
-              
-              <button className="btn btn-nav" type="button" 
-                onClick={this.btnExit}>Salir</button>
+              <span className="navbar-brand">Administrador de tareas</span>
+              <p id='name-user'>{this.props.name}</p>
+              <div className="container-btn-nav">
+                <button className="btn btn-nav mr-5" type="button" data-toggle="modal"
+                   data-target="#modalNewTask" onClick={this.handleBtnNewTask}>Nueva tarea</button>
+                <button className="btn btn-nav" type="button" 
+                  onClick={this.btnExit}>Salir</button>
+              </div>
             </nav>
             
             <div className="container-fluid container-table">
@@ -286,6 +292,8 @@ class Table extends Component {
 function mapStateToProps (state, props) {
   return {
     login: state.login,
+    name: state.name,
+    tasks: state.tasks
   }
 }
 

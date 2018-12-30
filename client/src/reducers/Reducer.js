@@ -5,7 +5,8 @@ function Reducer (state, action) {
     SET_LOGIN,
     SET_VALIDNAME,
     SET_NAME,
-    SET_PASSWORD_OK
+    SET_PASSWORD_OK,
+    SET_TASKS
 
   })[action.type]
 
@@ -28,4 +29,6 @@ function SET_PASSWORD_OK (state, action) {
   return { ...state, passwordOK: action.passwordOK }
 }
 
-
+function SET_TASKS (state, action) {
+  return { ...state, tasks: action.tasks }
+}
