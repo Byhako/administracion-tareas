@@ -7,16 +7,16 @@ import $ from 'jquery'
 import '@/styles/register.styl'
 
 class Register extends Component {
-constructor(props) {
-      super(props)
-      this.name = ''
-      this.email = ''
-      this.password = ''
-      this.password2 = ''
-      this.state = {
-        messageError: ''
-      }
+  constructor(props) {
+    super(props)
+    this.name = ''
+    this.email = ''
+    this.password = ''
+    this.password2 = ''
+    this.state = {
+      messageError: ''
     }
+  }
 
   handleChangeName = (e) => {
     const value = e.target.value
@@ -37,7 +37,6 @@ constructor(props) {
     } else {
       this.email = false
     }
-
   }
 
 
