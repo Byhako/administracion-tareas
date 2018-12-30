@@ -8,8 +8,8 @@ const logger = createLogger()
 const middleware = [ReduxThunk, logger]
 
 export const initialState = {
-  token: null,
   login: false,
+  validName: true
 }
 
 const store = createStore(

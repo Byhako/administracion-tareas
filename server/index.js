@@ -42,13 +42,14 @@ app.delete('/delete', (req, res) => {
 
 
 app.post('/register', async (req, res) => {
-  const usuarios = await mongoDB.getNames()
-  console.log(req.body)
-  console.log('names: ',usuarios)
+  const {name, email, password } = req.body
+  const id = await mongoDB.createUser(name, email, password)
   
-
-
-  res.json({"estado": "conectado"})
+  if (id) {
+    res.json({ id, validName: true })
+  } else {
+    res.json({ id, validName: false })
+  }
 })
 
 

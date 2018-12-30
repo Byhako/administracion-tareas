@@ -1,4 +1,4 @@
-import React, { Component,  } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import actions from '@/actions'
@@ -16,6 +16,14 @@ class Register extends Component {
     this.state = {
       messageError: ''
     }
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.validName !== this.props.validName) {
+      $('.spinner-border').css('display', 'none')
+      this.setState({messageError: 'Nombre ya registrado!'})
+    }
+
   }
 
   handleChangeName = (e) => {
@@ -63,7 +71,7 @@ class Register extends Component {
       this.setState({messageError: ''})
       this.props.dispatch(actions.register(this.name, this.email, this.password))
       $('.spinner-border').css('display', 'block')
-    } else if (!this.email){
+    } else if (!this.email) {
       this.setState({messageError: 'Correo incorrecto!'})
     } else {
       this.setState({messageError: 'Las contraseñas no coinciden!'})
@@ -73,75 +81,81 @@ class Register extends Component {
 
   render () {
     return (
-      <div className="container-fluid contenedor">
-        <div className="row">           
-          <p className="col-4 offset-4 title-register">Registra un nuevo usuario.</p> 
-        </div>
+      <Fragment>
+        {!this.props.login ? (
+          <div className="container-fluid contenedor">
+            <div className="row">           
+              <p className="col-4 offset-4 title-register">Registra un nuevo usuario.</p> 
+            </div>
 
-        <div className="row">            
-          <div className="col-4 offset-4 pd-5 container-login">
-            <label htmlFor='nombre' className='col-10 offset-1 label-login'>
-              Nombre
-            </label>
-            <input
-              id='nombre'
-              type='text'
-              className='col-10 offset-1 input-login'
-              placeholder='nombre'
-              onChange={this.handleChangeName}
-            />
+            <div className="row">            
+              <div className="col-4 offset-4 pd-5 container-login">
+                <label htmlFor='nombre' className='col-10 offset-1 label-login'>
+                  Nombre
+                </label>
+                <input
+                  id='nombre'
+                  type='text'
+                  className='col-10 offset-1 input-login'
+                  placeholder='nombre'
+                  onChange={this.handleChangeName}
+                />
 
-            <label htmlFor='email' className='col-10 offset-1 label-login'>
-              Correo
-            </label>
-            <input
-              id='email'
-              type='email'
-              className='col-10 offset-1 input-login'
-              placeholder='user@email.com'
-              onChange={this.handleChangeEmail}
-            />
-            
-            <label htmlFor='password' className='col-10 offset-1 label-login'>
-              Contraseña
-            </label>
-            <input
-              id='password'
-              className='col-10 offset-1 input-login'
-              onChange={this.handleChangePassword}
-              type="password"
-              placeholder='••••••••••'
-            />
-            
-            <label htmlFor='password2' className='col-10 offset-1 label-login'>
-              Confirma Contraseña
-            </label>
-            <input
-              id='password2'
-              className='col-10 offset-1 input-login'
-              onChange={this.handleChangePassword2}
-              type="password"
-              placeholder='••••••••••'
-            />
-            
-            <div className='col-10 offset-1 btn-container'>
-              <div className="row">                
-                <div className="col-7">
-                  <small>{this.state.messageError}</small>
-                  <div className="spinner-border text-info" role="status">
-                    <span className="sr-only">Loading...</span>
+                <label htmlFor='email' className='col-10 offset-1 label-login'>
+                  Correo
+                </label>
+                <input
+                  id='email'
+                  type='email'
+                  className='col-10 offset-1 input-login'
+                  placeholder='user@email.com'
+                  onChange={this.handleChangeEmail}
+                />
+                
+                <label htmlFor='password' className='col-10 offset-1 label-login'>
+                  Contraseña
+                </label>
+                <input
+                  id='password'
+                  className='col-10 offset-1 input-login'
+                  onChange={this.handleChangePassword}
+                  type="password"
+                  placeholder='••••••••••'
+                />
+                
+                <label htmlFor='password2' className='col-10 offset-1 label-login'>
+                  Confirma Contraseña
+                </label>
+                <input
+                  id='password2'
+                  className='col-10 offset-1 input-login'
+                  onChange={this.handleChangePassword2}
+                  type="password"
+                  placeholder='••••••••••'
+                />
+                
+                <div className='col-10 offset-1 btn-container'>
+                  <div className="row">                
+                    <div className="col-7">
+                      <small>{this.state.messageError}</small>
+                      <div className="spinner-border text-info" role="status">
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </div>
+
+                    <div className="col-5">                  
+                    <button className="btn-login" onClick={this.handleRegister}>Registrar</button>
+                    </div>
                   </div>
                 </div>
 
-                <div className="col-5">                  
-                <button className="btn-login" onClick={this.handleRegister}>Registrar</button>
-                </div>
               </div>
             </div>
-
           </div>
-        </div>
-      </div>
+        ):(
+          <Redirect to='/table' />
+        )}
+      </Fragment>
     )
   }
 }
@@ -149,6 +163,7 @@ class Register extends Component {
 function mapStateToProps (state, props) {
   return {
     login: state.login,
+    validName: state.validName
   }
 }
 

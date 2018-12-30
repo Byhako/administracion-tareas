@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 
 class MongoLib {
   constructor () {
-    this.User = ''
+    this.Users = ''
     // esquema
     this.Schema = mongoose.Schema
     this.userSchema = new this.Schema({
@@ -31,14 +31,42 @@ class MongoLib {
     return new Promise((resolve, reject) => {
       this.Users.find({}, {name:1, _id:0}, (err, users) => {
         if (err) reject(err)
-        console.log('pp:', users)
         resolve(users)
       })
     })
   }
 
-  createUser (name, email, password) {
-    const userNames = this.getNames()
+  async createUser (name, email, password) {
+    const userNames = await this.getNames()
+    const listNames = userNames.map(i => i.name)
+
+    console.log(listNames)
+    console.log('buscando: ', name)
+    console.log(listNames.indexOf(name))
+
+    if (listNames.indexOf(name) === -1) {
+      // creamos usuario
+      const id = new mongoose.Types.ObjectId
+      const newUser = new this.Users ({
+        _id: id,
+        name,
+        email,
+        password,
+        tasks: []
+      })
+
+      return new Promise((resolve, reject) => {
+        newUser.save(err => {
+          if (err) reject(err)
+          resolve(id)
+          console.log('User successfully saved.')
+        })
+      })
+
+    } else {
+      // usuario ya existe
+      return null
+    }
   }
 
   get(collection, id) {

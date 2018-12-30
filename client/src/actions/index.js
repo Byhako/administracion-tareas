@@ -28,6 +28,11 @@ function register (name, email, password) {
       })
       .then(data => {
         console.log(data)
+        if (data.validName) {
+          dispatch({ type: 'SET_LOGIN', login: true })
+        } else {
+          dispatch({ type: 'SET_VALIDNAME', validName: false })
+        }
       })
       .catch(err => console.error('Error in response registrar:', err))
   }
