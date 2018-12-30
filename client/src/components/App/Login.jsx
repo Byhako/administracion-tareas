@@ -15,7 +15,19 @@ class Login extends Component {
       this.state = {
         messageError: ''
       }
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.validName !== this.props.validName) {
+      $('.spinner-border').css('display', 'none')
+      this.setState({messageError: 'Usuario no encontrado.'})
     }
+    if (prevProps.passwordOK !== this.props.passwordOK) {
+      $('.spinner-border').css('display', 'none')
+      this.setState({messageError: 'Contraseña incorrecta!'})
+    }
+
+  }
 
   handleChangeEmail = (e) => {
     $('#mail').addClass('email-error')
@@ -107,6 +119,8 @@ class Login extends Component {
 function mapStateToProps (state, props) {
   return {
     login: state.login,
+    passwordOK: state.passwordOK,
+    validName: state.validName
   }
 }
 

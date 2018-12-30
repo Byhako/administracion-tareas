@@ -40,11 +40,7 @@ class MongoLib {
     const userNames = await this.getNames()
     const listNames = userNames.map(i => i.name)
 
-    console.log(listNames)
-    console.log('buscando: ', name)
-    console.log(listNames.indexOf(name))
-
-    if (listNames.indexOf(name) === -1) {
+     if (listNames.indexOf(name) === -1) {
       // creamos usuario
       const id = new mongoose.Types.ObjectId
       const newUser = new this.Users ({
@@ -69,38 +65,19 @@ class MongoLib {
     }
   }
 
-  get(collection, id) {
-    return this.connect()
-      .then(db => {
-        return db.collection(collection).findOne({ _id: ObjectId(id) })
+  login (email) {
+    return new Promise((resolve, reject) => {
+      this.Users.find({email}, (err, users) => {
+        if (err) reject(err)
+        resolve(users)
       })
+    })
   }
 
-  create(collection, data) {
-    return this.connect()
-      .then(db => {
-        return db.collection(collection).insertOne(data)
-      })
-      .then(result => result.insertedId)
-  }
 
-  update(collection, id, data) {
-    return this.connect()
-      .then(db => {
-        return db
-          .collection(collection)
-          .updateOne({ _id: ObjectId(id) }, { $set: data }, { upsert: true })
-      })
-      .then(result => result.upsertedId || id)
-  }
 
-  delete(collection, id) {
-    return this.connect()
-      .then(db => {
-        return db.collection(collection).deleteOne({ _id: ObjectId(id) })
-      })
-      .then(() => id)
-  }
+
+
 }
 
 module.exports = MongoLib

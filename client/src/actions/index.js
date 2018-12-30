@@ -1,5 +1,5 @@
 export default {
-  prueba, registrar, put, borrar, login, register, exit
+  prueba, put, borrar, login, register, exit
 }
 
 
@@ -29,6 +29,7 @@ function register (name, email, password) {
       .then(data => {
         console.log(data)
         if (data.validName) {
+          dispatch({ type: 'SET_NAME', name })
           dispatch({ type: 'SET_LOGIN', login: true })
         } else {
           dispatch({ type: 'SET_VALIDNAME', validName: false })
@@ -39,11 +40,10 @@ function register (name, email, password) {
 }
 
 
-
-function registrar (email, password) {
+function login (email, password) {
   return function (dispatch) {
 
-    const url = `http://localhost:3000/register`
+    const url = `http://localhost:3000/login`
     const body = {email, password}
     const miInit = {
       method: 'POST',
@@ -56,19 +56,32 @@ function registrar (email, password) {
     return fetch(url, miInit)
       .then(response => {
         if (response.ok) {
-          console.log('Request registrar ok')
+          console.log('Request login ok')
           return response.json()
         } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {registrar: false, type} })
+          dispatch({ type: 'SET_LOGIN', state: {login: false, type} })
         }
-        else { console.log('Error in request registrar:', response) }
+        else { console.log('Error in request login:', response) }
       })
       .then(data => {
         console.log(data)
+        if (data.user && data.password) {
+          // Usuario valido
+          dispatch({ type: 'SET_NAME', name: data.name })
+          dispatch({ type: 'SET_LOGIN', login: true })
+        } else if (data.user && !data.password) {
+          // Password incorrecto
+          dispatch({ type: 'SET_PASSWORD_OK', passwordOK: false })
+        } else {
+          // Usuario no encontrado
+          dispatch({ type: 'SET_VALIDNAME', validName: false })
+        }
       })
-      .catch(err => console.error('Error in response registrar:', err))
+      .catch(err => console.error('Error in response login:', err))
   }
 }
+
+
 
 function prueba () {
   console.log('accion prueba')
@@ -159,44 +172,6 @@ function borrar (email, password) {
 
 
 
-
-
-function login (email, password) {
-  return function (dispatch) {
-    dispatch({ type: 'SET_LOGIN', login: true })
-
-    // const url = 'https://181.143.87.202:3000/admin/login'
-    // const body = {admin: {email, password}}
-    // const miInit = {
-    //   method: 'POST',
-
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(body)
-    // }
-    // console.log(miInit)
-
-    // return fetch(url, miInit)
-    //   .then(response => {
-    //     if (response.ok) {
-    //       console.log('Request login ok')
-    //       return response.json()
-    //     } else if (response.status === 401) {
-    //       dispatch({ type: 'SET_LOGIN', state: {login: false, type} })
-    //     }
-    //     else { console.log('Error in request login:', response) }
-    //   })
-    //   .then(data => {
-    //     console.log(data)
-    //     if (data) {
-    //       const login = data.valid
-    //       const token = data.token
-    //       dispatch({ type: 'SET_LOGIN', state: {login, type} })
-    //       dispatch({ type: 'SET_TOKEN', token })
-    //     }
-    //   })
-    //   .catch(err => console.error('Error in response login:', err))
-  }
-}
 
 
 

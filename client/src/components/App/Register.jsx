@@ -23,7 +23,6 @@ class Register extends Component {
       $('.spinner-border').css('display', 'none')
       this.setState({messageError: 'Nombre ya registrado!'})
     }
-
   }
 
   handleChangeName = (e) => {

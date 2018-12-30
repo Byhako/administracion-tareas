@@ -40,7 +40,7 @@ app.delete('/delete', (req, res) => {
 // ------------------------------------------------------
 
 
-
+// Registrar nuevo usuario
 app.post('/register', async (req, res) => {
   const {name, email, password } = req.body
   const id = await mongoDB.createUser(name, email, password)
@@ -51,6 +51,29 @@ app.post('/register', async (req, res) => {
     res.json({ id, validName: false })
   }
 })
+
+
+// Login
+app.post('/login', async (req, res) => {
+  const {email, password } = req.body
+  const user = await mongoDB.login(email)
+
+  if (user[0]) {
+    if (user[0].password === password) {
+      // usuario valido
+      res.json({"user": true, "password": true, "name": user[0].name})
+    } else {
+      // password incorrecto
+      res.json({"user": true, "password": false, "name": null})
+    }
+  } else {
+    // Usuario no encontrado
+      res.json({"user": false, "password": false, "name": null})
+  }
+  // res.json({ login })
+})
+
+
 
 
 const PORT = 3000

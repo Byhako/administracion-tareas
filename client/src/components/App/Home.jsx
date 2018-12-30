@@ -10,9 +10,6 @@ class Home extends Component {
   prueba = () => {
     this.props.dispatch(actions.prueba())
   }
-  post = () => {
-    this.props.dispatch(actions.registrar('ana', 'pepe'))
-  }
   put = () => {
     this.props.dispatch(actions.put('leche', 'pan'))
   }
@@ -27,7 +24,6 @@ class Home extends Component {
               Administrador de tareas
             </p>
             <button className="btn" onClick={this.prueba}>prueba</button>
-            <button className="btn" onClick={this.post}>post</button>
             <button className="btn" onClick={this.put}>put</button>
             <button className="btn" onClick={this.delete}>delete</button>
 
