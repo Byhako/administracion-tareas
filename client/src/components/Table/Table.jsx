@@ -18,11 +18,6 @@ class Table extends Component {
     this.idTask = 0
 
     this.state = {
-      // tasks: [
-      //   {nameTask: "comer", priority: "Baja", date: "2018-12-30"},
-      //   {nameTask: "nadar", priority: "Media", date: "2018-12-26"},
-      //   {nameTask: "bailar", priority: "Alta", date: "2018-12-30"}
-      // ],
       tasks: [],
       editTask: {}
     }
@@ -77,7 +72,7 @@ class Table extends Component {
     const id = e.target.dataset.id
     let tasks = this.state.tasks.slice()
     let task = tasks[id]
-    console.log(task)
+    
 
     swal({
       title: "¿Estas seguro?",
@@ -89,6 +84,8 @@ class Table extends Component {
     .then((willDelete) => {
       if (willDelete) {
         tasks.splice(id, 1)
+      
+        this.props.dispatch(actions.updateTask(this.props.name, tasks))
         this.setState({tasks})
 
         swal("Poof! La tarea ha sido borrada!", {
@@ -111,6 +108,7 @@ class Table extends Component {
 
     if (this.nameTask !== '' && this.date !== '') {
       tasks.push(newTask)
+      this.props.dispatch(actions.updateTask(this.props.name, tasks))
       this.setState({tasks})
       $('#modalNewTask').modal('toggle')
     } else {
@@ -127,7 +125,9 @@ class Table extends Component {
       tasks[this.idTask].priority = this.priority
       tasks[this.idTask].date = this.date
 
+      this.props.dispatch(actions.updateTask(this.props.name, tasks))
       this.setState({tasks})
+
       $('#modaEditTask').modal('toggle')
     } else {
       console.log('error')

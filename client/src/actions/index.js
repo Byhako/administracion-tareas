@@ -1,5 +1,5 @@
 export default {
-  prueba, put, borrar, login, register, exit
+  login, register, updateTask, exit
 }
 
 
@@ -80,6 +80,34 @@ function login (email, password) {
   }
 }
 
+
+function updateTask (name, tasks) {
+  return function (dispatch) {
+
+    const url = `http://localhost:3000/updateTasks`
+    const body = { name, tasks }
+    const miInit = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      mode: 'cors'
+    }
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request createTask ok')
+          return response.json()
+        } else if (response.status === 401) {
+          dispatch({ type: 'SET_LOGIN', state: {createTask: false, type} })
+        }
+        else { console.log('Error in request createTask:', response) }
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => console.error('Error in response createTask:', err))
+  }
+}
 
 
 function prueba () {

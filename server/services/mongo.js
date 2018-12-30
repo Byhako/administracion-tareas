@@ -65,6 +65,7 @@ class MongoLib {
     }
   }
 
+
   login (email) {
     return new Promise((resolve, reject) => {
       this.Users.find({email}, (err, users) => {
@@ -75,9 +76,24 @@ class MongoLib {
   }
 
 
+  updateTasks (name, tasks) {
+    return new Promise((resolve, reject) => {
+      this.Users.findOneAndUpdate(
+        { name }, { tasks }, 
+        (err, user) => {
+          if (err) reject(err)
+          console.log('User updated successfully')
+          resolve()
+        }
+      )
+    })
+  }
+
+
 
 
 
 }
+
 
 module.exports = MongoLib

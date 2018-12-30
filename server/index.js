@@ -76,6 +76,13 @@ app.post('/login', async (req, res) => {
 })
 
 
+// Actualiza lista de tareas tarea
+app.post('/updateTasks', async (req, res) => {
+  const { name, tasks } = req.body
+  await mongoDB.updateTasks(name, tasks)
+  res.json({"state":"User updated successfully"})
+})
+
 
 
 const PORT = 3000
