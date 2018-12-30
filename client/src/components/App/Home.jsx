@@ -10,7 +10,15 @@ class Home extends Component {
   prueba = () => {
     this.props.dispatch(actions.prueba())
   }
-
+  post = () => {
+    this.props.dispatch(actions.registrar('ana', 'pepe'))
+  }
+  put = () => {
+    this.props.dispatch(actions.put('leche', 'pan'))
+  }
+  delete = () => {
+    this.props.dispatch(actions.borrar('coche', 'casa'))
+  }
   render () {
     return (
         <div className="container-fluid contenedor">
@@ -18,7 +26,10 @@ class Home extends Component {
             <p className="col-8 offset-2 title-home">
               Administrador de tareas
             </p>
-            <button className="btn1" onClick={this.prueba}>prueba</button>
+            <button className="btn" onClick={this.prueba}>prueba</button>
+            <button className="btn" onClick={this.post}>post</button>
+            <button className="btn" onClick={this.put}>put</button>
+            <button className="btn" onClick={this.delete}>delete</button>
 
           </div>
           <div className="row">
