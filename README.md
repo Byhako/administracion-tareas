@@ -46,7 +46,7 @@ Luego de registrarlo, ingresamos a la lista de tareas, que estará vacía para u
   <img src="./screamshots/3.png" alt="img1">
 </p>
 
-La aplicación puede ser iniciada con el corre *ruben@mail.com* y contraseña *ruben*.
+La aplicación puede ser iniciada con el correo `ruben@mail.com` y contraseña `ruben`.
 
 <p align="center">
   <img src="./screamshots/4.png" alt="img1">
@@ -65,3 +65,21 @@ Una vez creadas, las tareas están listadas en el centro. Las tareas cuya fecha 
 </p>
 
 También podemos editar o borrar alguna tarea usando los íconos respectivos.
+
+--------------------------------------
+
+Los documentos de la base de datos están con la siguiente estructura.
+
+```
+{
+	"name": "Ruben",
+	"email": "ruben@mail.com",
+	"password": "ruben"
+	"tasks": [
+		"nameTask": "Comer",
+		"priority": "Alta",
+		"date": "2018-12-30"
+	]
+
+}
+```
