@@ -46,7 +46,7 @@ Luego de registrarlo, ingresamos a la lista de tareas, que estará vacía para u
   <img src="./screamshots/3.png" alt="img1">
 </p>
 
-La aplicación puede ser iniciada con el correo `ruben@mail.com` y contraseña `ruben`.
+Después de crear un nuevo usuario o hacer login entramos a la interfaz de administración.
 
 <p align="center">
   <img src="./screamshots/4.png" alt="img1">
@@ -58,7 +58,7 @@ Podemos crear nuevas tareas desde el boton de la navbar.
   <img src="./screamshots/5.png" alt="img1">
 </p>
 
-Una vez creadas, las tareas están listadas en el centro. Las tareas cuya fecha de vencimiento es anterior a la fecha de hoy (fecha en la que se esta corriendo la aplicación) están clasificadas como tareas vencidas y se listan a la derecha, además al lado de la respectiva tarea aparece un círculo rojo.  Las tareas cuya fecha coincida con la de hoy o mañana son clasificadas como próximas a vencersen, serán listadas al lado izquierdo y aparece círculo amarillo al lado del nombre de la respectiva tarea.
+Una vez creadas, las tareas están listadas en el centro. Las tareas cuya fecha de vencimiento es anterior a la fecha de hoy (fecha en la que se esta corriendo la aplicación) están clasificadas como tareas vencidas y se listan a la derecha, además al lado de la respectiva tarea aparece un círculo rojo.  Las tareas cuya fecha coincida con la de hoy o mañana son clasificadas como próximas a vencerse, serán listadas al lado izquierdo y aparece círculo amarillo al lado del nombre de la respectiva tarea.
 
 <p align="center">
   <img src="./screamshots/6.png" alt="img1">

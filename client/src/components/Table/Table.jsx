@@ -205,10 +205,10 @@ class Table extends Component {
             
             <div className="container-fluid container-table">
               <div className="row">
-                {/*Tareas vencidas*/}
+                {/*Tareas próximas a vencerse*/}
                 <div className="col-2">
                   <ul className="list-group">
-                    <li className="list-group-item title-list-warning">Próximas a vencersen</li>
+                    <li className="list-group-item title-list-warning">Próximas a vencerse</li>
                     {this.state.tasksWarning.map((name, i) => (
                       <li key={i} className="list-group-item item-warning">{name}</li>
                     ))}
@@ -255,7 +255,7 @@ class Table extends Component {
                   </table>
                 </div>
 
-                {/*Tareas proximas a vencercen*/}
+                {/*Tareas vencidas*/}
                 <div className="col-2 offset-1">
                   <ul className="list-group">
                     <li className="list-group-item title-list-danger">Vencidas</li>
