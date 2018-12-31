@@ -7,7 +7,6 @@ function Reducer (state, action) {
     SET_NAME,
     SET_PASSWORD_OK,
     SET_TASKS
-
   })[action.type]
 
   return (reducer && reducer(state, action)) || state

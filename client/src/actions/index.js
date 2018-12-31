@@ -1,7 +1,4 @@
-export default {
-  login, register, updateTask, exit
-}
-
+export default { login, register, updateTask, exit }
 
 function register (name, email, password) {
   return function (dispatch) {
@@ -14,17 +11,13 @@ function register (name, email, password) {
       body: JSON.stringify(body),
       mode: 'cors'
     }
-    console.log(miInit)
 
     return fetch(url, miInit)
       .then(response => {
         if (response.ok) {
           console.log('Request registrar ok')
           return response.json()
-        } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {registrar: false, type} })
-        }
-        else { console.log('Error in request registrar:', response) }
+        } else { console.log('Error in request registrar:', response) }
       })
       .then(data => {
         console.log(data)
@@ -38,7 +31,6 @@ function register (name, email, password) {
       .catch(err => console.error('Error in response registrar:', err))
   }
 }
-
 
 function login (email, password) {
   return function (dispatch) {
@@ -56,13 +48,9 @@ function login (email, password) {
         if (response.ok) {
           console.log('Request login ok')
           return response.json()
-        } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {login: false, type} })
-        }
-        else { console.log('Error in request login:', response) }
+        } else { console.log('Error in request login:', response) }
       })
       .then(data => {
-        console.log(data)
         if (data.user && data.password) {
           // Usuario valido
           dispatch({ type: 'SET_TASKS', tasks: data.tasks })
@@ -80,7 +68,6 @@ function login (email, password) {
   }
 }
 
-
 function updateTask (name, tasks) {
   return function (dispatch) {
 
@@ -97,10 +84,7 @@ function updateTask (name, tasks) {
         if (response.ok) {
           console.log('Request createTask ok')
           return response.json()
-        } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {createTask: false, type} })
-        }
-        else { console.log('Error in request createTask:', response) }
+        } else { console.log('Error in request createTask:', response) }
       })
       .then(data => {
         console.log(data)
@@ -109,98 +93,7 @@ function updateTask (name, tasks) {
   }
 }
 
-
-function prueba () {
-  console.log('accion prueba')
-  return function (dispatch) {
-  
-    const url = `http://localhost:3000/`
-    const miInit = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-      mode: 'cors'
-    }
-    return fetch(url, miInit)
-      .then(response => {
-        if (response.ok) {
-          console.log('Request prueba ok')
-          return response.json()
-        } else { 
-          console.log('Error in request prueba:', response) 
-        }})
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.error('Error in response prueba:', err))
-  }
-}
-
-function put (email, password) {
-  return function (dispatch) {
-
-    const url = `http://localhost:3000/put`
-    const body = {email, password}
-    const miInit = {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      mode: 'cors'
-    }
-    console.log(miInit)
-
-    return fetch(url, miInit)
-      .then(response => {
-        if (response.ok) {
-          console.log('Request registrar ok')
-          return response.json()
-        } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {registrar: false, type} })
-        }
-        else { console.log('Error in request registrar:', response) }
-      })
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.error('Error in response registrar:', err))
-  }
-}
-
-function borrar (email, password) {
-  return function (dispatch) {
-
-    const url = `http://localhost:3000/delete`
-    const body = {email, password}
-    const miInit = {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
-      mode: 'cors'
-    }
-    console.log(miInit)
-
-    return fetch(url, miInit)
-      .then(response => {
-        if (response.ok) {
-          console.log('Request registrar ok')
-          return response.json()
-        } else if (response.status === 401) {
-          dispatch({ type: 'SET_LOGIN', state: {registrar: false, type} })
-        }
-        else { console.log('Error in request registrar:', response) }
-      })
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.error('Error in response registrar:', err))
-  }
-}
-
-
-
-
-
-
-function exit (email, password) {
+function exit () {
   return function (dispatch) {
     dispatch({ type: 'SET_LOGIN', login: false })
   }

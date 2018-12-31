@@ -5,7 +5,7 @@ import Reducer from '../reducers/Reducer'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const logger = createLogger()
-const middleware = [ReduxThunk]//, logger]
+const middleware = [ReduxThunk, logger]
 
 export const initialState = {
   login: false,

@@ -32,9 +32,9 @@ class Register extends Component {
 
   handleChangeEmail = (e) => {
     $('#email').addClass('email-error')
-
     const value = e.target.value
 
+    // Verifico si el email tiene formato correcto
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const isValid = emailRegex.test(value)
 
@@ -55,6 +55,7 @@ class Register extends Component {
   handleChangePassword2 = (e) => {
     const value = e.target.value
     this.password2 = value
+    // Verifico si las contraseñas coinciden
     if (this.password === this.password2) {
       $('#password').removeClass('email-error')
       $('#password2').removeClass('email-error')
@@ -65,7 +66,6 @@ class Register extends Component {
   }
 
   handleRegister = () => {
-
     if (this.password === this.password2 && this.email) {
       this.setState({messageError: ''})
       this.props.dispatch(actions.register(this.name, this.email, this.password))
@@ -83,11 +83,11 @@ class Register extends Component {
       <Fragment>
         {!this.props.login ? (
           <div className="container-fluid contenedor">
-            <div className="row">           
+            <div className="row">
               <p className="col-4 offset-4 title-register">Registra un nuevo usuario.</p> 
             </div>
 
-            <div className="row">            
+            <div className="row">
               <div className="col-4 offset-4 pd-5 container-login">
                 <label htmlFor='nombre' className='col-10 offset-1 label-login'>
                   Nombre
@@ -134,7 +134,7 @@ class Register extends Component {
                 />
                 
                 <div className='col-10 offset-1 btn-container'>
-                  <div className="row">                
+                  <div className="row">
                     <div className="col-7">
                       <small>{this.state.messageError}</small>
                       <div className="spinner-border text-info" role="status">
@@ -142,7 +142,7 @@ class Register extends Component {
                       </div>
                     </div>
 
-                    <div className="col-5">                  
+                    <div className="col-5">
                     <button className="btn-login" onClick={this.handleRegister}>Registrar</button>
                     </div>
                   </div>

@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 const MongoLib = require('./services/mongo')
 const mongoDB = new MongoLib()
-// me conecto a la base de datos.
+// me conecto a la base de datos
 mongoDB.connect()
 
 
@@ -19,7 +19,7 @@ mongoDB.connect()
 app.post('/register', async (req, res) => {
   const {name, email, password } = req.body
   const id = await mongoDB.createUser(name, email, password)
-  
+
   if (id) {
     res.json({ id, validName: true })
   } else {
@@ -32,8 +32,6 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
   const {email, password } = req.body
   const user = await mongoDB.login(email)
-  
-  console.log(user[0])
 
   if (user[0]) {
     if (user[0].password === password) {
@@ -47,7 +45,6 @@ app.post('/login', async (req, res) => {
     // Usuario no encontrado
       res.json({"user": false, "password": false, "name": null})
   }
-  // res.json({ login })
 })
 
 

@@ -26,14 +26,13 @@ class Login extends Component {
       $('.spinner-border').css('display', 'none')
       this.setState({messageError: 'Contraseña incorrecta!'})
     }
-
   }
 
   handleChangeEmail = (e) => {
     $('#mail').addClass('email-error')
-
     const value = e.target.value
 
+    // Verifico si el email tiene formato correcto
     const emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
     const isValid = emailRegex.test(value)
 
@@ -51,7 +50,6 @@ class Login extends Component {
   }
 
   handleLogin = () => {
-    console.log(this.email, this.password)
     $('.spinner-border').css('display', 'block')
     this.props.dispatch(actions.login(this.email, this.password))
   }
@@ -61,11 +59,11 @@ class Login extends Component {
       <Fragment>
         {!this.props.login ? (
           <div className="container-fluid contenedor">
-            <div className="row">           
+            <div className="row">
               <p className="col-4 offset-4 title-login">Ingresa tu correo y contraseña.</p> 
             </div>
 
-            <div className="row">            
+            <div className="row">
               <div className="col-4 offset-4 pd-5 container-login">
                 <label htmlFor='mail' className='col-10 offset-1 label-login'>
                   Correo
@@ -90,7 +88,7 @@ class Login extends Component {
               
 
                 <div className='col-10 offset-1 btn-container'>
-                  <div className="row">                
+                  <div className="row">
                     <div className="col-7">
                       <small>{this.state.messageError}</small>
                       <div className="spinner-border text-info" role="status">
@@ -98,13 +96,13 @@ class Login extends Component {
                       </div>
                     </div>
 
-                    <div className="col-5">                  
+                    <div className="col-5">
                       <button className="btn-login" onClick={this.handleLogin}>Ingresar</button>
                     </div>
                   </div>
                 </div>
 
-              </div>            
+              </div>
             </div>
           </div>
         ) : (

@@ -1,20 +1,35 @@
-# React Template Full
+# Aplicación de administración de tareas.
 
-+ Template for an React application, with Redux, React Router, Stylus and Bootstrap, all orchestrated with Webpack 4.
+Aplicación desarrollada en React, con stylus como preprocesador de css.
+El servidor esta hecho en express y la base de datos con MongoDb version v4.0.5.
 
 ### use:
 
-+ **development:** npm start
++ **Iniciamos mongoDb**
 
-+ **production:** npm run build
+Nos ubicamos en la carpeta /server/services y corremos:
 
-### dependencies
+```
+$ mongod --dbpath /home/ruben/Escritorio/administracion-tareas/server/services
+```
 
-npm install -- save jquery popper.js react react-dom react-redux react-router react-router-dom redux redux-logger redux-thunk
++ **Iniciamos el servidor**
+Dentro de la carpeta server corremos:
+```
+$ npm install
+$ npm run dev
+```
 
-### devDependencies
++ **Iniciamos UI**
+Dentro de la carpeta client corremos:
+```
+$ npm install
+$ npm start
+```
 
-npm install -D babel-core babel-loader babel-preset-env babel-preset-react babel-preset-stage-2 bootstrap clean-webpack-plugin css-loader eslint eslint-config-standard eslint-loader eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard file-loader html-webpack-plugin redux-devtools-extension standard style-loader stylus stylus-loader ttf-loader url-loader webpack webpack-cli webpack-dev-server
+---------------------------------
+Al iniciar la aplicación tenemos la pantalla de bienvenida.
 
-+ Base de datos:  MongoDb
-  db version v4.0.5
+<p align="center">
+  <img src="./screamshots/1.png" alt="img1">
+</p>

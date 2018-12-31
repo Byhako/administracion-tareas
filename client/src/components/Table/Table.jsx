@@ -137,19 +137,24 @@ class Table extends Component {
   }
 
   orderTasks = (tasks) => {
+    // Obtengo fecha de hoy al inicio del dia
     const today = new Date()
     today.setHours(0)
     today.setMinutes(0)
     today.setSeconds(0)
     today.setMilliseconds(0)
 
+    // Fecha de mañana
     let tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
 
     let tasksOrdered = []
-    let tasksDanger = []
-    let tasksWarning = []
+    let tasksDanger = [] // tareas vencidas
+    let tasksWarning = [] // tareas próximas a vencersen
 
+    // Para cada tarea, comparo su fecha de vencimiento con la fecha
+    // de hoy y de mañana.  Si es anterior a hoy, la tarea esta vencida (danger)
+    // si la fecha es hoy o mañana, esta próxima a vencerse (warning)
     tasks.forEach((task) => {
       let dateTask = task.date.split('-')
       dateTask = new Date(
@@ -173,7 +178,7 @@ class Table extends Component {
     this.setState({
       tasks: tasksOrdered,
       tasksDanger,
-      tasksWarning                
+      tasksWarning
     })
 
   }
@@ -203,11 +208,11 @@ class Table extends Component {
                 {/*Tareas vencidas*/}
                 <div className="col-2">
                   <ul className="list-group">
-                    <li className="list-group-item title-list-warning">Proximas a vencercen</li>
+                    <li className="list-group-item title-list-warning">Próximas a vencersen</li>
                     {this.state.tasksWarning.map((name, i) => (
                       <li key={i} className="list-group-item item-warning">{name}</li>
                     ))}
-                  </ul>                  
+                  </ul>
                 </div>
                 {/*Tabla principal*/}
                 <div className="col-6 offset-1">
@@ -257,7 +262,7 @@ class Table extends Component {
                     {this.state.tasksDanger.map((name, i) => (
                       <li key={i} className="list-group-item item-danger">{name}</li>
                     ))}
-                  </ul>      
+                  </ul>
                 </div>
                 
               </div>
@@ -305,7 +310,7 @@ class Table extends Component {
               <div className="modal-footer">
                 <h6 className='mx-auto message-error'>¡Faltan campos por llenar!</h6>
                 <button type="button" className="btn btn-exit" data-dismiss="modal">Salir</button>
-                <button type="button" className="btn btn-modal" 
+                <button type="button" className="btn btn-modal"
                   onClick={this.createTask}>Crear tarea</button>
               </div>
             </div>
