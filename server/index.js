@@ -15,31 +15,6 @@ const mongoDB = new MongoLib()
 mongoDB.connect()
 
 
-app.get('/', (req, res) => {
-  res.json({"estado": "conectado"})
-})
-
-app.post('/registrar', (req, res) => {
-  console.log(req.body)
-  res.json({"estado": "conectado"})
-})
-
-app.put('/put', (req, res) => {
-  console.log(req.body)
-  res.json({"estado": "conectado"})
-})
-
-app.delete('/delete', (req, res) => {
-  console.log(req.body)
-  res.json({"estado": "conectado"})
-})
-
-// ------------------------------------------------------
-// ------------------------------------------------------
-// ------------------------------------------------------
-// ------------------------------------------------------
-
-
 // Registrar nuevo usuario
 app.post('/register', async (req, res) => {
   const {name, email, password } = req.body
@@ -84,10 +59,7 @@ app.post('/updateTasks', async (req, res) => {
 })
 
 
-
 const PORT = 3000
 const server = app.listen(PORT, () => {
   console.log(`Listening http://localhost:${server.address().port}`)
 })
-
-//module.exports = server

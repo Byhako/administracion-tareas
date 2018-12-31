@@ -19,13 +19,14 @@ class Table extends Component {
 
     this.state = {
       tasks: [],
+      tasksDanger: [],
+      tasksWarning: [],
       editTask: {}
     }
   }
 
   componentDidMount () {
-    console.log(this.props.tasks)
-    this.setState({tasks: this.props.tasks})
+    this.orderTasks(this.props.tasks)
   }
 
   handleBtnNewTask = () => {
@@ -72,7 +73,6 @@ class Table extends Component {
     const id = e.target.dataset.id
     let tasks = this.state.tasks.slice()
     let task = tasks[id]
-    
 
     swal({
       title: "¿Estas seguro?",
@@ -86,7 +86,7 @@ class Table extends Component {
         tasks.splice(id, 1)
       
         this.props.dispatch(actions.updateTask(this.props.name, tasks))
-        this.setState({tasks})
+        this.orderTasks(tasks)
 
         swal("Poof! La tarea ha sido borrada!", {
           icon: "success",
@@ -109,7 +109,7 @@ class Table extends Component {
     if (this.nameTask !== '' && this.date !== '') {
       tasks.push(newTask)
       this.props.dispatch(actions.updateTask(this.props.name, tasks))
-      this.setState({tasks})
+      this.orderTasks(tasks)
       $('#modalNewTask').modal('toggle')
     } else {
       $('.modal-header').addClass('modal-error')
@@ -126,7 +126,7 @@ class Table extends Component {
       tasks[this.idTask].date = this.date
 
       this.props.dispatch(actions.updateTask(this.props.name, tasks))
-      this.setState({tasks})
+      this.orderTasks(tasks)
 
       $('#modaEditTask').modal('toggle')
     } else {
@@ -134,6 +134,48 @@ class Table extends Component {
       $('.modal-header').addClass('modal-error')
       $('.message-error').css("display", "block")
     }
+  }
+
+  orderTasks = (tasks) => {
+    const today = new Date()
+    today.setHours(0)
+    today.setMinutes(0)
+    today.setSeconds(0)
+    today.setMilliseconds(0)
+
+    let tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+
+    let tasksOrdered = []
+    let tasksDanger = []
+    let tasksWarning = []
+
+    tasks.forEach((task) => {
+      let dateTask = task.date.split('-')
+      dateTask = new Date(
+        Number(dateTask[0]),
+        Number(dateTask[1]-1),
+        Number(dateTask[2])
+      )
+      let state = 'good'
+
+      if (dateTask < today) {
+        state = 'danger'
+        tasksDanger.push(task.nameTask)
+      } else if (dateTask <= tomorrow) {
+        state = 'warning'
+        tasksWarning.push(task.nameTask)
+      }
+
+      tasksOrdered.push({...task, state})
+    })
+
+    this.setState({
+      tasks: tasksOrdered,
+      tasksDanger,
+      tasksWarning                
+    })
+
   }
 
   btnExit = () => {
@@ -157,31 +199,67 @@ class Table extends Component {
             </nav>
             
             <div className="container-fluid container-table">
-              <div className="col-6 offset-3">
-                <table className="table table-striped table-dark">
-                  <thead>
-                    <tr>
-                      <th scope="col">Nombre de tarea</th>
-                      <th scope="col">Prioridad</th>
-                      <th scope="col">Fecha</th>
-                      <th>Editar/borrar</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.tasks.map((task, i) => (
-                      <tr key={i}>
-                        <td>{task.nameTask}</td>
-                        <td>{task.priority}</td>
-                        <td>{task.date}</td>
-                        <td className="container-icons">
-                          <i className="fas fa-edit icon" data-id={i} data-toggle="modal"
-                            data-target="#modaEditTask" onClick={this.handleIconEdit} />
-                          <i className="fas fa-trash-alt icon" data-id={i} onClick={this.handleIconDelete}></i>        
-                        </td>
-                      </tr>
+              <div className="row">
+                {/*Tareas vencidas*/}
+                <div className="col-2">
+                  <ul className="list-group">
+                    <li className="list-group-item title-list-warning">Proximas a vencercen</li>
+                    {this.state.tasksWarning.map((name, i) => (
+                      <li key={i} className="list-group-item item-warning">{name}</li>
                     ))}
-                  </tbody>
-                </table>
+                  </ul>                  
+                </div>
+                {/*Tabla principal*/}
+                <div className="col-6 offset-1">
+                  <table className="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">Nombre de tarea</th>
+                        <th scope="col">Prioridad</th>
+                        <th scope="col">Fecha</th>
+                        <th>Editar/borrar</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.tasks.map((task, i) => {
+                        let style = {}
+                        if (task.state === 'danger') {
+                          style = { color: '#EF2929FF' }
+                        } else if (task.state === 'warning') {
+                          style = { color: '#EDD400FF' }
+                        } else {
+                          style = { color: 'transparent' }
+                        }
+                        return (
+                          <tr key={i}>
+                            <td>
+                              <i className="fas fa-circle circle" style={style}/>
+                              {task.nameTask}
+                            </td>
+                            <td>{task.priority}</td>
+                            <td>{task.date}</td>
+                            <td className="container-icons">
+                              <i className="fas fa-edit icon" data-id={i} data-toggle="modal"
+                                data-target="#modaEditTask" onClick={this.handleIconEdit} />
+                              <i className="fas fa-trash-alt icon" data-id={i} onClick={this.handleIconDelete}></i>        
+                            </td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+
+                {/*Tareas proximas a vencercen*/}
+                <div className="col-2 offset-1">
+                  <ul className="list-group">
+                    <li className="list-group-item title-list-danger">Vencidas</li>
+                    {this.state.tasksDanger.map((name, i) => (
+                      <li key={i} className="list-group-item item-danger">{name}</li>
+                    ))}
+                  </ul>      
+                </div>
+                
               </div>
             </div>
           </Fragment>
@@ -284,9 +362,6 @@ class Table extends Component {
     )
   }
 }
-
-
-
 
 
 function mapStateToProps (state, props) {
