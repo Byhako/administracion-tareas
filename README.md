@@ -31,37 +31,37 @@ $ npm start
 Al iniciar la aplicación tenemos la pantalla de bienvenida.
 
 <p align="center">
-  <img src="./screamshots/1.png" alt="img1">
+  <img src="./screenshots/1.png" alt="img1">
 </p>
 
 Para comenzar debemos registar un nuevo usuario.
 
 <p align="center">
-  <img src="./screamshots/2.png" alt="img1">
+  <img src="./screenshots/2.png" alt="img1">
 </p>
 
 Luego de registrarlo, ingresamos a la lista de tareas, que estará vacía para un usuario nuevo.  Cuando ya tenemos un usuario registrado podemos ingresar con el correo y contraseña registrados.
 
 <p align="center">
-  <img src="./screamshots/3.png" alt="img1">
+  <img src="./screenshots/3.png" alt="img1">
 </p>
 
 Después de crear un nuevo usuario o hacer login entramos a la interfaz de administración.
 
 <p align="center">
-  <img src="./screamshots/4.png" alt="img1">
+  <img src="./screenshots/4.png" alt="img1">
 </p>
 
 Podemos crear nuevas tareas desde el boton de la navbar.
 
 <p align="center">
-  <img src="./screamshots/5.png" alt="img1">
+  <img src="./screenshots/5.png" alt="img1">
 </p>
 
 Una vez creadas, las tareas están listadas en el centro. Las tareas cuya fecha de vencimiento es anterior a la fecha de hoy (fecha en la que se esta corriendo la aplicación) están clasificadas como tareas vencidas y se listan a la derecha, además al lado de la respectiva tarea aparece un círculo rojo.  Las tareas cuya fecha coincida con la de hoy o mañana son clasificadas como próximas a vencerse, serán listadas al lado izquierdo y aparece círculo amarillo al lado del nombre de la respectiva tarea.
 
 <p align="center">
-  <img src="./screamshots/6.png" alt="img1">
+  <img src="./screenshots/6.png" alt="img1">
 </p>
 
 También podemos editar o borrar alguna tarea usando los íconos respectivos.
